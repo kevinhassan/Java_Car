@@ -42,15 +42,14 @@ public class Car2
         // ----------------------------------------------------
         // Ecrivez votre code ici :
         
-        double rotationInRadians=0; // <- valeur temporaire a remplacer
-       
-        // Tache 2 - Calculez la distance a parcourir en x et en y (en fonction de l'angle de rotation)
+        double rotationInRadians= Math.toRadians(rotationInDegrees); // <- valeur temporaire a remplacer
+              // Tache 2 - Calculez la distance a parcourir en x et en y (en fonction de l'angle de rotation)
         // Initialisez les variables distX et distY avec une valeur correcte.
         // Voir enonce en pdf pour plus de details (cos, sin du module java Math)
         // ----------------------------------------------------
         // Ecrivez votre code ici :
                      
-        double distX=10,distY=10; // <- valeurs temporaires a remplacer
+        double distX= dist * Math.cos(rotationInRadians),distY= dist * Math.sin(rotationInRadians); // <- valeurs temporaires a remplacer
         
         // ----------------------------------------------------
         
