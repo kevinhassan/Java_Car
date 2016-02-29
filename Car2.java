@@ -15,7 +15,7 @@ public class Car2
     ColorImage carImage = new ColorImage("car-racing1-pink.png");
     //carImage.scale = 0.5;
     double consoEssence = 10.0;
-    double essenceDansReservoir = 6.0;
+    double essenceDansReservoir = 0.6;
     int x, y = 200;
     public Car2 () {}
     
@@ -44,27 +44,26 @@ public class Car2
         // Obtain the current rotation in degrees
         int rotationInDegrees  = carImage.getRotation();
         double rotationInRadians = rotationInDegrees*Math.PI/180; // <- valeur temporaire a remplacer
-       
+    
+        // Update the amount of gas in tank assumming that each unit of dist is 10m
+        double distKm = 0;
+        double essenceUtilisee = 0;
+        
+        int i = 0;
+        
+        while(essenceUtilisee < essenceDansReservoir && i < dist && essenceDansReservoir >= 0)
+        {
+            i++;
+            distKm = i /100.0;
+            essenceUtilisee = distKm/100 * consoEssence;
+        }  
         // Computes the shift in the X and Y axes according to the rotation angle            
-        double distX = dist * Math.cos(rotationInRadians);
-        double distY = dist * Math.sin(rotationInRadians);
-       
-        // Move the car in both x and y directions with the correct distances
-        // Notice that setX() and setY() take int as argument
+        double distX = i * Math.cos(rotationInRadians);
+        double distY = i * Math.sin(rotationInRadians);
         carImage.setX(carImage.getX() + (int)distX);
         carImage.setY(carImage.getY() + (int)distY);
-        
-        // Update the amount of gas in tank assumming that each unit of dist is 10m
-        double distKm = dist / 100.0;
-        double essenceUtilisee = distKm / 100.0 * consoEssence;
-        
-        if((essenceDansReservoir - essenceUtilisee) >= 0)
-        {
-            carImage.setX(carImage.getX() + (int)distX);
-            carImage.setY(carImage.getY() + (int)distY);
-            essenceDansReservoir = essenceDansReservoir - essenceUtilisee;
-            IO.outputln("Amount of gas used: " + essenceUtilisee + ", gas remained: " + essenceDansReservoir);
-        }        
+        essenceDansReservoir = essenceDansReservoir - essenceUtilisee;
+        IO.outputln("Amount of gas used: " + essenceUtilisee + ", gas remained: " + essenceDansReservoir);
     }
     
     public void makeTurn(int angleAdditionnel) 
@@ -84,7 +83,6 @@ public class Car2
         canvas.add(carImage,x,y); // ajoute l'image de la voiture aux coordonnees indiquees
     }
     
-
     // Fait tourner une voiture (la vitesse est en pixels)
     // le cercle effectue par la voiture est d'autant plus grand que la vitesse est grande
     public void tournerEnRond(int vitesse) 
@@ -102,9 +100,9 @@ public class Car2
     // Oriente une voiture dans la direction d'un objectif (dont les coordonnees sont donnees en param)
     public void faireFace(int xObj, int yObj) 
     {
-            // Methode de http://www.gamefromscratch.com/post/2012/11/18/GameDev-math-recipes-Rotating-to-face-a-point.aspx
-            double angle = Math.atan2(yObj - carImage.getY(), xObj - carImage.getX() );
-            angle = angle * (180/Math.PI);
-            carImage.setRotation((int)angle);
+        // Methode de http://www.gamefromscratch.com/post/2012/11/18/GameDev-math-recipes-Rotating-to-face-a-point.aspx
+        double angle = Math.atan2(yObj - carImage.getY(), xObj - carImage.getX() );
+        angle = angle * (180/Math.PI);
+        carImage.setRotation((int)angle);
    }    
 }
