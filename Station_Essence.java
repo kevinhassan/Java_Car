@@ -11,10 +11,11 @@ public class Station_Essence
     private String typesEssenceVendu[];
     private int prixTypesEssences[];
 
-    public Station_Essence(String typeEssence[])
+    public Station_Essence(String typeEssence[], int prix[])
     {
         // initialise instance variables
         typesEssenceVendu = typeEssence;
+        prixTypesEssences = prix;
     }
     public int getPrix(String typeEssence)
     {
