@@ -40,26 +40,32 @@ public class Car2
 
     // Deplacer de dist pixels une voiture dans sa direction actuelle
     public void moveForward(int dist)
-        { 
-            // Obtain the current rotation in degrees
-            int rotationInDegrees  = carImage.getRotation();
-            double rotationInRadians = rotationInDegrees*Math.PI/180; // <- valeur temporaire a remplacer
-           
-            // Computes the shift in the X and Y axes according to the rotation angle            
-            double distX = dist * Math.cos(rotationInRadians);
-            double distY = dist * Math.sin(rotationInRadians);
-           
-            // Move the car in both x and y directions with the correct distances
-            // Notice that setX() and setY() take int as argument
+    { 
+        // Obtain the current rotation in degrees
+        int rotationInDegrees  = carImage.getRotation();
+        double rotationInRadians = rotationInDegrees*Math.PI/180; // <- valeur temporaire a remplacer
+       
+        // Computes the shift in the X and Y axes according to the rotation angle            
+        double distX = dist * Math.cos(rotationInRadians);
+        double distY = dist * Math.sin(rotationInRadians);
+       
+        // Move the car in both x and y directions with the correct distances
+        // Notice that setX() and setY() take int as argument
+        carImage.setX(carImage.getX() + (int)distX);
+        carImage.setY(carImage.getY() + (int)distY);
+        
+        // Update the amount of gas in tank assumming that each unit of dist is 10m
+        double distKm = dist / 100.0;
+        double essenceUtilisee = distKm / 100.0 * consoEssence;
+        
+        if((essenceDansReservoir - essenceUtilisee) >= 0)
+        {
             carImage.setX(carImage.getX() + (int)distX);
             carImage.setY(carImage.getY() + (int)distY);
-            
-            // Update the amount of gas in tank assumming that each unit of dist is 10m
-            double distKm = dist / 100.0;
-            double essenceUtilisee = distKm / 100.0 * consoEssence;
             essenceDansReservoir = essenceDansReservoir - essenceUtilisee;
             IO.outputln("Amount of gas used: " + essenceUtilisee + ", gas remained: " + essenceDansReservoir);
-        }
+        }        
+    }
     
     public void makeTurn(int angleAdditionnel) 
     { 
