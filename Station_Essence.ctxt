@@ -1,7 +1,8 @@
 #BlueJ class context
-comment0.params=typeEssence\ prix
-comment0.target=Station_Essence(java.lang.String[],\ int[])
-comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Station_Essence\r\n
+comment0.params=typeEssence
+comment0.target=Station_Essence(java.lang.String[])
 comment1.params=typeEssence
 comment1.target=int\ getPrix(java.lang.String)
-numComments=2
+comment2.params=type\ argent
+comment2.target=int\ achatEssence(int,\ float)
+numComments=3

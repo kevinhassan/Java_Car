@@ -8,16 +8,13 @@
 public class Station_Essence
 {
     // instance variables - replace the example below with your own
-    private String[] typesEssenceVendu;
-    private int[] prixTypesEssences;
-    /**
-     * Constructor for objects of class Station_Essence
-     */
-    public Station_Essence(String[] typeEssence, int[] prix)
+    private String typesEssenceVendu[];
+    private int prixTypesEssences[];
+
+    public Station_Essence(String typeEssence[])
     {
         // initialise instance variables
         typesEssenceVendu = typeEssence;
-        prixTypesEssences = prix;
     }
     public int getPrix(String typeEssence)
     {
@@ -32,6 +29,6 @@ public class Station_Essence
     }
     public int achatEssence(int type, float argent)
     {
-        
+        return (int)argent/prixTypesEssences[type];
     }
 }
