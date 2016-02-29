@@ -13,10 +13,12 @@ public class Car2
 
     String proprietaire = "aucun";
     ColorImage carImage = new ColorImage("car-racing1-pink.png");
+    ColorImage jerricanImage = new ColorImage("jerrican.png");
     //carImage.scale = 0.5;
     double consoEssence = 10.0;
-    double essenceDansReservoir = 0.6;
+    double essenceDansReservoir = 0.1;
     int x, y = 200;
+    Canvas canvas; // declare une zone pour dessiner des objets
     public Car2 () {}
     
     public Car2(String nomDuproprietaire) 
@@ -36,7 +38,6 @@ public class Car2
         x = posX;
         y = posY;
     }
-
 
     // Deplacer de dist pixels une voiture dans sa direction actuelle
     public void moveForward(int dist)
@@ -64,6 +65,10 @@ public class Car2
         carImage.setY(carImage.getY() + (int)distY);
         essenceDansReservoir = essenceDansReservoir - essenceUtilisee;
         IO.outputln("Amount of gas used: " + essenceUtilisee + ", gas remained: " + essenceDansReservoir);
+        if(essenceDansReservoir <= 0)
+        {
+            canvas.add(jerricanImage,carImage.getX() + carImage.getWidth(),carImage.getY());//Problème il faut avoir lancé le canvasDemo
+        }
     }
     
     public void makeTurn(int angleAdditionnel) 
@@ -73,13 +78,18 @@ public class Car2
     }
     
     // addGas ajoute un volume d'essence indiqué au reservoir
-     public void addGas(double essenceSupplementaire) {
-         essenceDansReservoir = essenceDansReservoir + essenceSupplementaire;
+     public void addGas(double essenceSupplementaire) 
+    {
+        essenceDansReservoir = essenceDansReservoir + essenceSupplementaire;
+        if(essenceDansReservoir >= 0)
+        {
+            canvas.remove(jerricanImage);//Probleme si demoCar pas lancé
+        }
     }
     
     public void Car2Demo()
     {
-        Canvas canvas = new Canvas(); // declare une zone pour dessiner des objets
+        canvas = new Canvas();
         canvas.add(carImage,x,y); // ajoute l'image de la voiture aux coordonnees indiquees
     }
     
