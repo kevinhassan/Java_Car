@@ -23,7 +23,7 @@ public class Ville
         v1.makeTurn(45);
         v2 = new Car2("g2");
         v2.makeTurn(-30);
-        station1 = new Station_Essence(["95 S/P","98 S/P"], [2,1]);
+        station1 = new Station_Essence(new String[] {"95 S/P","98 S/P"}, new int[] {2,1});
     }
     public void deplacerVoiture(int laquelle, int dist){
         if (laquelle == 1){

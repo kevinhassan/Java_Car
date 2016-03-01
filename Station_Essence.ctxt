@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=typeEssence
-comment0.target=Station_Essence(java.lang.String[])
+comment0.params=typeEssence\ prix
+comment0.target=Station_Essence(java.lang.String[],\ int[])
 comment1.params=typeEssence
 comment1.target=int\ getPrix(java.lang.String)
 comment2.params=type\ argent
