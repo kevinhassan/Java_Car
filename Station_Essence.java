@@ -11,23 +11,19 @@ import comp102x.ColorImage;
 public class Station_Essence
 {
     // instance variables - replace the example below with your own
-    private String typesEssenceVendus[]={"Gasoil","Essence"};
-    private int prixTypesEssences[]={1,2};
-    int x = 600;
-    int y = 600;
+    private String typesEssenceVendus[]={"Diesel","Essence","Ethanol","Huile de Friture"};
+    private int prixTypesEssences[]={1,3,1,2};
+    int x= (int)(Math.random() * 600);
+    int y= (int)(Math.random() * 600);
     ColorImage carImage = new ColorImage("Gas_Station.png");
     Ville ville;    
 
     public Station_Essence(Ville ville)
     {
-        
         this.ville=ville;
-        this.ville.canvas.add(carImage,this.x,this.y);
     }
-
-    public int getPrix(String typeEssence)
-    {
-      //Pre: On suppose que le type d'essence est contenu dans le tableau
+    public int getType(String typeEssence)
+    { //Pre: On suppose que le type d'essence est contenu dans le tableau
        int i = 0;
        String type = typesEssenceVendus[0];
        while(type != typeEssence || i< typesEssenceVendus.length)
@@ -35,11 +31,22 @@ public class Station_Essence
          i ++;
          type = typesEssenceVendus[i];
        }
-       return prixTypesEssences[i];
-
+       return i;
     }
+    
+    public int getPrix(int type)
+    {
+        return this.prixTypesEssences[type];
+    }
+    
     public double achatEssence(int type, float argent)
     {
-        return argent/this.prixTypesEssences[type];
+        return argent/this.getPrix(type);
     }
+    public int getX(){
+        return this.x;
+    }
+    public int getY(){
+        return this.y;
+    }    
 }

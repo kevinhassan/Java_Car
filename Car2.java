@@ -1,7 +1,7 @@
 import comp102x.IO;
 import comp102x.Canvas;
 import comp102x.ColorImage;
-
+import java.math.*;
 /**
  * Cette classe contient les voitures du canvas Ville
  * 
@@ -19,9 +19,9 @@ public class Car2
     double essenceDansReservoir = 0.1;
     int x, y = 200;
     private Ville ville; // A une voiture on associe une ville 
-    int argent = 50;
-    String typeMotorisation = "Essence";
-
+    float argent = 100;
+    String typeMoteur = "Essence";
+    
     public Car2 (Ville ville) 
     {
         this.ville = ville; //On associe la ville créée dans le constructeur de voiture
@@ -85,12 +85,24 @@ public class Car2
     }
     
     // addGas ajoute un volume d'essence indiqué au reservoir
-     public void addGas(double essenceSupplementaire) 
-    {//Vérifier que l'argent de la personne permet d'acheter le carburant du type de la motorisation du véhicule
-        essenceDansReservoir = essenceDansReservoir + essenceSupplementaire;
-        if(essenceDansReservoir >= 0)
+     public void faireLePlein(double essenceSupplementaire) 
+    {
+        if(pretDeLaStation() && essenceSupplementaire >= this.ville.station.achatEssence(this.ville.station.getType(typeMoteur),argent))
         {
-           this.ville.canvas.remove(jerricanImage);//Probleme si demoCar pas lancé
+            essenceDansReservoir = essenceDansReservoir + essenceSupplementaire;
+            argent -= essenceSupplementaire * this.ville.station.getPrix(this.ville.station.getType(typeMoteur));
+            if(essenceDansReservoir >= 0)
+            {
+               this.ville.canvas.remove(jerricanImage);
+            }
+        }
+        else if (!pretDeLaStation())
+        {
+            IO.outputln("Vous n'êtes pas sur une station service ! Good Luck !");
+        }
+        else
+        {
+            IO.outputln(" Vous n'avez pas suffisament d'argent pour remplir le réservoir  ");
         }
     }
     
@@ -120,5 +132,21 @@ public class Car2
         double angle = Math.atan2(yObj - carImage.getY(), xObj - carImage.getX() );
         angle = angle * (180/Math.PI);
         carImage.setRotation((int)angle);
-   }    
+   }   
+   public void atteindre(int x, int y)
+   {
+       this.faireFace(x,y);
+       if(x-carImage.getX() == 0) // Si c'est un déplacement verticale
+        this.moveForward(Math.abs(y-carImage.getY()));
+       else
+        this.moveForward(Math.abs(x-carImage.getX())); // Si c'est un déplacement horyzontale
+   } 
+   public void rejoindreStation()
+   {
+        this.atteindre(this.ville.station.getX(),this.ville.station.getY());
+   }
+   public boolean pretDeLaStation()
+   {
+        return this.carImage.getX() == this.ville.station.getX() &&  this.carImage.getY() == this.ville.station.getY();
+   }
 }

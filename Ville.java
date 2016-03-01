@@ -11,11 +11,10 @@ public class Ville
 {
     private String nom;
     Canvas canvas = new Canvas();
-    
+    Station_Essence station; 
     public Ville(String nom)
     {
-      this.nom=nom;  
-       
+      this.nom=nom;
+      station = new Station_Essence(this);
     }
-
 }
