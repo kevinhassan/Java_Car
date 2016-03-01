@@ -3,23 +3,29 @@ import comp102x.Canvas;
 import comp102x.ColorImage;
 
 /**
- * Write a description of class Cars here.
+ * Cette classe contient les voitures du canvas Ville
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kévin Hasssan IG3 
+ * @version 1.0
  */
 public class Car2
 {
 
     String proprietaire = "aucun";
     ColorImage carImage = new ColorImage("car-racing1-pink.png");
-    ColorImage jerricanImage = new ColorImage("jerrican.png");
+    ColorImage jerricanImage = new ColorImage("fuel.png");
     //carImage.scale = 0.5;
     double consoEssence = 10.0;
     double essenceDansReservoir = 0.1;
     int x, y = 200;
-    Canvas canvas; // declare une zone pour dessiner des objets
-    public Car2 () {}
+    private Ville ville; // A une voiture on associe une ville 
+    int argent = 50;
+    String typeMotorisation = "Essence";
+
+    public Car2 (Ville ville) 
+    {
+        this.ville = ville; //On associe la ville créée dans le constructeur de voiture
+    }
     
     public Car2(String nomDuproprietaire) 
     {
@@ -35,8 +41,8 @@ public class Car2
     }
     public Car2 (int posX, int posY)
     {
-        x = posX;
-        y = posY;
+        this.x = posX;
+        this.y = posY;
     }
 
     // Deplacer de dist pixels une voiture dans sa direction actuelle
@@ -61,13 +67,14 @@ public class Car2
         // Computes the shift in the X and Y axes according to the rotation angle            
         double distX = i * Math.cos(rotationInRadians);
         double distY = i * Math.sin(rotationInRadians);
+
         carImage.setX(carImage.getX() + (int)distX);
         carImage.setY(carImage.getY() + (int)distY);
         essenceDansReservoir = essenceDansReservoir - essenceUtilisee;
         IO.outputln("Amount of gas used: " + essenceUtilisee + ", gas remained: " + essenceDansReservoir);
         if(essenceDansReservoir <= 0)
         {
-            canvas.add(jerricanImage,carImage.getX() + carImage.getWidth(),carImage.getY());//Problème il faut avoir lancé le canvasDemo
+            this.ville.canvas.add(jerricanImage,carImage.getX() + carImage.getWidth(),carImage.getY());// ajoute l'image de jerrican juste à côté de la voiture
         }
     }
     
@@ -79,18 +86,17 @@ public class Car2
     
     // addGas ajoute un volume d'essence indiqué au reservoir
      public void addGas(double essenceSupplementaire) 
-    {
+    {//Vérifier que l'argent de la personne permet d'acheter le carburant du type de la motorisation du véhicule
         essenceDansReservoir = essenceDansReservoir + essenceSupplementaire;
         if(essenceDansReservoir >= 0)
         {
-            canvas.remove(jerricanImage);//Probleme si demoCar pas lancé
+           this.ville.canvas.remove(jerricanImage);//Probleme si demoCar pas lancé
         }
     }
     
     public void Car2Demo()
     {
-        canvas = new Canvas();
-        canvas.add(carImage,x,y); // ajoute l'image de la voiture aux coordonnees indiquees
+        this.ville.canvas.add(carImage,this.x,this.y); // On ajoute l'image dans le canevas 
     }
     
     // Fait tourner une voiture (la vitesse est en pixels)

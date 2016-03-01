@@ -2,8 +2,4 @@
 comment0.params=nom
 comment0.target=Ville(java.lang.String)
 comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Ville\r\n
-comment1.params=laquelle\ dist
-comment1.target=void\ deplacerVoiture(int,\ int)
-comment2.params=
-comment2.target=void\ sampleVille()
-numComments=3
+numComments=1

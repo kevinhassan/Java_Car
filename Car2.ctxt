@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=
-comment0.target=Car2()
+comment0.params=ville
+comment0.target=Car2(Ville)
 comment1.params=nomDuproprietaire
 comment1.target=Car2(java.lang.String)
 comment2.params=nomDuproprietaire\ newconsoEssence
